@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- SEO Meta Tags -->
+    <title>Рыбалка в Приморско-Ахтарске: Веб-камеры, Прогноз Клёва и Карта Мест 2024</title>
+    <meta name="description" content="Онлайн веб-камеры лиманов Ахтарска в реальном времени. Точный прогноз клева рыбы на сегодня и завтра. Интерактивная карта рыбных мест, базы отдыха, прокат лодок и установка видеонаблюдения.">
+    <meta name="keywords" content="рыбалка ахтарск, веб-камеры лиманы, прогноз клева, бейсугский лиман, ясенский залив, ахтарский лиман, базы отдыха ахтарск, прокат лодок, установка видеонаблюдения, клев сегодня, погода ахтарск">
+    <meta name="author" content="Рыбак Ахтарска">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://fish-akhtarsk.ru/">
+    
+    <!-- Open Graph / Facebook / VK -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fish-akhtarsk.ru/">
+    <meta property="og:title" content="Рыбак Ахтарска | Онлайн-карта клёва и веб-камеры">
+    <meta property="og:description" content="Смотрите трансляции с лиманов, проверяйте прогноз клева и находите лучшие места для рыбалки в Приморско-Ахтарском районе.">
+    <meta property="og:image" content="https://image.qwenlm.ai/public_source/d187e277-9135-47d0-946a-12779d3e5fcf/1a7d23eb1-c4ca-4880-870d-67d85a1f4860.png">
+    <meta property="og:locale" content="ru_RU">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Рыбак Ахтарска | Веб-камеры и Прогноз">
+    <meta name="twitter:description" content="Онлайн трансляции, погода и клев в Приморско-Ахтарске.">
+    <meta name="twitter:image" content="https://image.qwenlm.ai/public_source/d187e277-9135-47d0-946a-12779d3e5fcf/1a7d23eb1-c4ca-4880-870d-67d85a1f4860.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Yandex Maps API (Russian mapping service) -->
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=your-api-key&lang=ru_RU" type="text/javascript"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        water: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        reed: {
+                            50: '#f7f7e8',
+                            100: '#eef2c4',
+                            500: '#a3b126',
+                            600: '#849218',
+                            800: '#4f5a1a',
+                            900: '#3b421b',
+                        },
+                        earth: {
+                            50: '#fbf9f5',
+                            100: '#f5f0e6',
+                            800: '#5c5042',
+                            900: '#4a3f33',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Merriweather', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Merriweather', serif;
+        }
+        .hero-bg {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('https://image.qwenlm.ai/public_source/d187e277-9135-47d0-946a-12779d3e5fcf/1a7d23eb1-c4ca-4880-870d-67d85a1f4860.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .cam-card:hover img {
+            transform: scale(1.05);
+        }
+        .cam-card img {
+            transition: transform 0.5s ease;
+        }
+        #map {
+            height: 450px;
+            width: 100%;
+        }
+        .bite-meter {
+            transition: width 1s ease-in-out;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+
+    <!-- Structured Data (JSON-LD) for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "name": "Рыбак Ахтарска",
+          "url": "https://fish-akhtarsk.ru/",
+          "description": "Онлайн-карта клёва, веб-камеры лиманов и прогноз погоды для рыбаков Приморско-Ахтарска.",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://fish-akhtarsk.ru/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "LocalBusiness",
+          "name": "Установка видеонаблюдения Ахтарск",
+          "image": "https://image.qwenlm.ai/public_source/d187e277-9135-47d0-946a-12779d3e5fcf/14ca061ed-0b5f-48db-9b9c-8e715614d9f8.png",
+          "telephone": "+79990000000",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Приморско-Ахтарск",
+            "addressRegion": "Краснодарский край",
+            "addressCountry": "RU"
+          },
+          "priceRange": "$$",
+          "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday",
+              "Sunday"
+            ],
+            "opens": "09:00",
+            "closes": "20:00"
+          }
+        },
+        {
+          "@type": "Place",
+          "name": "Бейсугский лиман",
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 46.1200,
+            "longitude": 38.2500
+          }
+        },
+        {
+          "@type": "Place",
+          "name": "Ясенский залив",
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 45.9500,
+            "longitude": 38.1000
+          }
+        }
+      ]
+    }
+    </script>
+</head>
+<body class="bg-earth-50 text-gray-800 antialiased">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center gap-3">
+                        <i class="fa-solid fa-fish text-water-600 text-3xl"></i>
+                        <div>
+                            <span class="font-bold text-xl text-gray-900 block leading-none">РЫБАК</span>
+                            <span class="text-xs font-medium text-water-600 tracking-widest uppercase">АХТАРСКА</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#dashboard" class="text-gray-600 hover:text-water-600 font-medium transition">Дашборд</a>
+                    <a href="#cameras" class="text-gray-600 hover:text-water-600 font-medium transition">Веб-камеры</a>
+                    <a href="#forecast" class="text-gray-600 hover:text-water-600 font-medium transition">Прогноз клёва</a>
+                    <a href="#map-section" class="text-gray-600 hover:text-water-600 font-medium transition">Карта мест</a>
+                    <a href="#services" class="bg-water-600 text-white px-5 py-2.5 rounded-full font-medium hover:bg-water-800 transition shadow-lg shadow-water-500/30">
+                        <i class="fa-solid fa-video mr-2"></i>Установить камеру
+                    </a>
+                </div>
+                <div class="flex items-center md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-500 hover:text-gray-700 focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#dashboard" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-water-600 hover:bg-gray-50">Дашборд</a>
+                <a href="#cameras" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-water-600 hover:bg-gray-50">Веб-камеры</a>
+                <a href="#forecast" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-water-600 hover:bg-gray-50">Прогноз</a>
+                <a href="#map-section" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-water-600 hover:bg-gray-50">Карта</a>
+                <a href="#services" class="block px-3 py-2 mt-4 text-center rounded-md text-base font-medium bg-water-600 text-white">Заказать камеру</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-bg h-screen min-h-[600px] flex items-center justify-center relative">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-earth-50"></div>
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto mt-16">
+            <div class="inline-block bg-water-900/80 backdrop-blur-md text-white px-4 py-1 rounded-full text-sm font-semibold mb-6 border border-water-500/30">
+                <i class="fa-solid fa-location-dot mr-2 text-reed-500"></i>Приморско-Ахтарск и район
+            </div>
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 drop-shadow-lg">
+                Твой цифровой гид <br/> по лиманам и морю
+            </h1>
+            <p class="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto drop-shadow-md">
+                Онлайн-трансляции с водоёмов, точный прогноз клёва и интерактивная карта лучших мест для рыбалки.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#cameras" class="bg-water-600 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-water-500 transition shadow-lg shadow-water-600/40 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-play"></i> Смотреть онлайн
+                </a>
+                <a href="#forecast" class="bg-white/10 backdrop-blur-md border border-white/30 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white/20 transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-cloud-sun-rain"></i> Прогноз на сегодня
+                </a>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-0 left-0 right-0 bg-white/90 backdrop-blur border-t border-gray-200 py-4 hidden md:block">
+            <div class="max-w-7xl mx-auto px-4 grid grid-cols-4 gap-4 text-center divide-x divide-gray-200">
+                <div>
+                    <p class="text-xs text-gray-500 uppercase tracking-wide">Температура</p>
+                    <p class="text-2xl font-bold text-gray-800">+24°C</p>
+                </div>
+                <div>
+                    <p class="text-xs text-gray-500 uppercase tracking-wide">Ветер</p>
+                    <p class="text-2xl font-bold text-gray-800">3 м/с <span class="text-sm font-normal text-gray-500">ЮЗ</span></p>
+                </div>
+                <div>
+                    <p class="text-xs text-gray-500 uppercase tracking-wide">Давление</p>
+                    <p class="text-2xl font-bold text-gray-800">762 <span class="text-sm font-normal text-gray-500">мм рт.ст.</span></p>
+                </div>
+                <div>
+                    <p class="text-xs text-gray-500 uppercase tracking-wide">Фаза луны</p>
+                    <p class="text-2xl font-bold text-gray-800">Растущая</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard / Forecast Section -->
+    <section id="dashboard" class="py-16 md:py-24 bg-earth-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Дашборд рыбака</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Актуальные данные о погоде и расчет индекса клёва на основе давления, ветра и фазы луны.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100 relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-water-50 rounded-bl-full -mr-8 -mt-8 transition group-hover:bg-water-100"></div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+                        <i class="fa-solid fa-cloud-sun text-water-500"></i> Погода сейчас
+                    </h3>
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <span class="text-5xl font-bold text-gray-900">24°</span>
+                            <p class="text-gray-500 mt-1">Ясно, без осадков</p>
+                        </div>
+                        <i class="fa-solid fa-sun text-yellow-400 text-6xl animate-pulse-slow"></i>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div class="bg-gray-50 p-3 rounded-lg">
+                            <span class="block text-gray-400 text-xs uppercase">Влажность</span>
+                            <span class="font-semibold text-gray-700">65%</span>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded-lg">
+                            <span class="block text-gray-400 text-xs uppercase">Видимость</span>
+                            <span class="font-semibold text-gray-700">10 км</span>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded-lg">
+                            <span class="block text-gray-400 text-xs uppercase">Ветер</span>
+                            <span class="font-semibold text-gray-700">3 м/с</span>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded-lg">
+                            <span class="block text-gray-400 text-xs uppercase">Давление</span>
+                            <span class="font-semibold text-gray-700">762 мм</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100 lg:col-span-2">
+                    <h3 class="text-xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+                        <i class="fa-solid fa-fish text-reed-500"></i> Калькулятор клёва
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Атмосферное давление (мм рт.ст.)</label>
+                                <input type="range" id="pressure" min="730" max="780" value="760" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-water-600">
+                                <div class="flex justify-between text-xs text-gray-500 mt-1">
+                                    <span>730</span>
+                                    <span id="pressure-val" class="font-bold text-water-600">760</span>
+                                    <span>780</span>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Сила ветра (м/с)</label>
+                                <input type="range" id="wind" min="0" max="20" value="3" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-water-600">
+                                <div class="flex justify-between text-xs text-gray-500 mt-1">
+                                    <span>Штиль</span>
+                                    <span id="wind-val" class="font-bold text-water-600">3 м/с</span>
+                                    <span>Шторм</span>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Фаза луны</label>
+                                <select id="moon" class="w-full border-gray-300 rounded-lg shadow-sm focus:border-water-500 focus:ring focus:ring-water-200 focus:ring-opacity-50 p-2 border">
+                                    <option value="1">Новолуние</option>
+                                    <option value="2">Растущая</option>
+                                    <option value="3" selected>Полнолуние</option>
+                                    <option value="4">Убывающая</option>
+                                </select>
+                            </div>
+                            <button onclick="calculateBite()" class="w-full bg-reed-600 text-white py-3 rounded-lg font-bold hover:bg-reed-700 transition shadow-md">
+                                Рассчитать прогноз
+                            </button>
+                        </div>
+
+                        <div class="bg-gray-50 rounded-xl p-6 flex flex-col items-center justify-center text-center border border-gray-200">
+                            <p class="text-gray-500 text-sm uppercase tracking-wide mb-4">Индекс клёва</p>
+                            <div class="relative w-40 h-40 mb-4">
+                                <svg class="w-full h-full transform -rotate-90">
+                                    <circle cx="80" cy="80" r="70" stroke="#e5e7eb" stroke-width="12" fill="none" />
+                                    <circle id="bite-circle" cx="80" cy="80" r="70" stroke="#10b981" stroke-width="12" fill="none" stroke-dasharray="440" stroke-dashoffset="440" class="bite-meter" />
+                                </svg>
+                                <div class="absolute inset-0 flex items-center justify-center flex-col">
+                                    <span id="bite-score" class="text-4xl font-bold text-gray-800">-</span>
+                                    <span class="text-xs text-gray-500">из 5</span>
+                                </div>
+                            </div>
+                            <p id="bite-text" class="text-lg font-semibold text-gray-700">Нажмите "Рассчитать"</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Cameras Section -->
+    <section id="cameras" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-10 gap-4">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-2">Веб-камеры онлайн</h2>
+                    <p class="text-gray-600">Смотрите обстановку на водоёмах в реальном времени.</p>
+                </div>
+                <div class="flex gap-2">
+                    <button class="px-4 py-2 bg-water-100 text-water-800 rounded-full text-sm font-medium hover:bg-water-200 transition">Все</button>
+                    <button class="px-4 py-2 bg-gray-100 text-gray-600 rounded-full text-sm font-medium hover:bg-gray-200 transition">Лиманы</button>
+                    <button class="px-4 py-2 bg-gray-100 text-gray-600 rounded-full text-sm font-medium hover:bg-gray-200 transition">Море</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="cam-card group rounded-xl overflow-hidden shadow-lg bg-gray-900 relative aspect-video cursor-pointer">
+                    <img src="https://image.qwenlm.ai/public_source/d187e277-9135-47d0-946a-12779d3e5fcf/1cc1786e0-e362-4de6-91af-60b199ec3b0e.png" alt="Бейсугский лиман" class="w-full h-full object-cover opacity-90 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-5">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+                            <span class="text-xs font-bold text-red-400 uppercase tracking-wider">LIVE</span>
+                        </div>
+                        <h3 class="text-white font-bold text-lg">Бейсугский лиман</h3>
+                        <p class="text-gray-300 text-sm">Пирс базы "Удача"</p>
+                        <div class="mt-3 flex items-center gap-3 text-xs text-gray-300">
+                            <span><i class="fa-solid fa-wind mr-1"></i> 2 м/с</span>
+                            <span><i class="fa-solid fa-temperature-half mr-1"></i> +23°C</span>
+                        </div>
+                    </div>
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                        <div class="w-16 h-16 bg-white/20 backdrop-blur rounded-full flex items-center justify-center">
+                            <i class="fa-solid fa-play text-white text-2xl ml-1"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cam-card group rounded-xl overflow-hidden shadow-lg bg-gray-900 relative aspect-video cursor-pointer">
+                    <img src="https://image.qwenlm.ai/public_source/d187e277-9135-47d0-946a-12779d3e5fcf/1b15998a8-ee9f-4f4d-8c80-4e3423376206.png" alt="Ясенский залив" class="w-full h-full object-cover opacity-90 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-5">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+                            <span class="text-xs font-bold text-red-400 uppercase tracking-wider">LIVE</span>
+                        </div>
+                        <h3 class="text-white font-bold text-lg">Ясенский залив</h3>
+                        <p class="text-gray-300 text-sm">Городской пляж</p>
+                        <div class="mt-3 flex items-center gap-3 text-xs text-gray-300">
+                            <span><i class="fa-solid fa-wind mr-1"></i> 5 м/с</span>
+                            <span><i class="fa-solid fa-temperature-half mr-1"></i> +25°C</span>
+                        </div>
+                    </div>
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                        <div class="w-16 h-16 bg-white/20 backdrop-blur rounded-full flex items-center justify-center">
+                            <i class="fa-solid fa-play text-white text-2xl ml-1"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cam-card group rounded-xl overflow-hidden shadow-lg bg-gray-900 relative aspect-video cursor-pointer">
+                    <img src="https://image.qwenlm.ai/public_source/d187e277-9135-47d0-946a-12779d3e5fcf/1e635be4d-a7f1-44ec-a37f-d22b228944c1.png" alt="Ахтарский лиман" class="w-full h-full object-cover opacity-90 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-5">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+                            <span class="text-xs font-bold text-red-400 uppercase tracking-wider">LIVE</span>
+                        </div>
+                        <h3 class="text-white font-bold text-lg">База "Рыбачий Рай"</h3>
+                        <p class="text-gray-300 text-sm">Ахтарский лиман</p>
+                        <div class="mt-3 flex items-center gap-3 text-xs text-gray-300">
+                            <span><i class="fa-solid fa-wind mr-1"></i> 1 м/с</span>
+                            <span><i class="fa-solid fa-temperature-half mr-1"></i> +24°C</span>
+                        </div>
+                    </div>
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                        <div class="w-16 h-16 bg-white/20 backdrop-blur rounded-full flex items-center justify-center">
+                            <i class="fa-solid fa-play text-white text-2xl ml-1"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-8 text-center">
+                <a href="#" class="inline-flex items-center text-water-600 font-semibold hover:text-water-800 transition">
+                    Смотреть все камеры <i class="fa-solid fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section (Yandex Maps) -->
+    <section id="map-section" class="py-16 bg-earth-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                <div class="p-6 border-b border-gray-100 flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900">Карта рыболовных мест</h2>
+                        <p class="text-gray-500 text-sm mt-1">Отметки пользователей, базы отдыха и точки доступа.</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm hover:bg-gray-200"><i class="fa-solid fa-layer-group mr-2"></i>Слои</button>
+                        <button class="px-4 py-2 bg-water-600 text-white rounded-lg text-sm hover:bg-water-700"><i class="fa-solid fa-plus mr-2"></i>Добавить точку</button>
+                    </div>
+                </div>
+                <!-- Yandex Map Container -->
+                <div id="map"></div>
+                <div class="p-4 bg-gray-50 border-t border-gray-100">
+                    <div class="flex flex-wrap gap-4 text-sm">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-location-dot text-reed-500"></i>
+                            <span class="text-gray-600">Рыболовное место</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-video text-water-500"></i>
+                            <span class="text-gray-600">Веб-камера</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-house text-gray-500"></i>
+                            <span class="text-gray-600">База отдыха</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services / Monetization Section -->
+    <section id="services" class="py-16 bg-water-900 text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 30px 30px;"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <span class="text-reed-400 font-bold tracking-wider uppercase text-sm mb-2 block">Для владельцев баз и домов</span>
+                    <h2 class="text-3xl md:text-5xl font-bold mb-6">Привлекайте клиентов с помощью онлайн-трансляции</h2>
+                    <p class="text-water-100 text-lg mb-8 leading-relaxed">
+                        Установите камеру на своём пирсе, базе отдыха или частном доме. Рыбаки со всего региона увидят ваш водоём в прямом эфире на нашем портале. Это лучшая реклама для вашего бизнеса.
+                    </p>
+                    
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-circle-check text-reed-400 mt-1"></i>
+                            <span>Бесплатное размещение в каталоге баз отдыха на год</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-circle-check text-reed-400 mt-1"></i>
+                            <span>Контроль за территорией и безопасностью 24/7</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-circle-check text-reed-400 mt-1"></i>
+                            <span>Доступ к архиву записей с телефона</span>
+                        </li>
+                    </ul>
+
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button class="bg-reed-500 text-white px-8 py-4 rounded-full font-bold hover:bg-reed-600 transition shadow-lg shadow-reed-500/30">
+                            Заказать установку
+                        </button>
+                        <button class="bg-transparent border border-white/30 text-white px-8 py-4 rounded-full font-bold hover:bg-white/10 transition">
+                            Узнать стоимость
+                        </button>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="absolute -inset-4 bg-reed-500/20 rounded-full blur-3xl"></div>
+                    <img src="https://image.qwenlm.ai/public_source/d187e277-9135-47d0-946a-12779d3e5fcf/14ca061ed-0b5f-48db-9b9c-8e715614d9f8.png" alt="Camera Installation" class="relative rounded-2xl shadow-2xl border border-white/10 w-full max-w-md mx-auto transform rotate-2 hover:rotate-0 transition duration-500">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catalog Preview -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Популярные базы и магазины</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="border border-gray-200 rounded-xl p-4 hover:shadow-lg transition">
+                    <div class="h-40 bg-gray-200 rounded-lg mb-4 overflow-hidden">
+                         <img src="https://image.qwenlm.ai/public_source/d187e277-9135-47d0-946a-12779d3e5fcf/1e635be4d-a7f1-44ec-a37f-d22b228944c1.png" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="font-bold text-lg text-gray-900">База "Рыбачий Рай"</h3>
+                        <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-bold">Есть камера</span>
+                    </div>
+                    <p class="text-gray-500 text-sm mb-4">Проживание, прокат лодок, баня.</p>
+                    <a href="#" class="text-water-600 font-semibold text-sm hover:underline">Подробнее</a>
+                </div>
+                 <div class="border border-gray-200 rounded-xl p-4 hover:shadow-lg transition">
+                    <div class="h-40 bg-gray-200 rounded-lg mb-4 flex items-center justify-center text-gray-400">
+                        <i class="fa-solid fa-image text-4xl"></i>
+                    </div>
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="font-bold text-lg text-gray-900">Магазин "Клёвое Место"</h3>
+                        <span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded font-bold">Снасти</span>
+                    </div>
+                    <p class="text-gray-500 text-sm mb-4">Все виды снастей, приманок, эхолоты.</p>
+                    <a href="#" class="text-water-600 font-semibold text-sm hover:underline">Подробнее</a>
+                </div>
+                 <div class="border border-gray-200 rounded-xl p-4 hover:shadow-lg transition">
+                    <div class="h-40 bg-gray-200 rounded-lg mb-4 flex items-center justify-center text-gray-400">
+                        <i class="fa-solid fa-image text-4xl"></i>
+                    </div>
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="font-bold text-lg text-gray-900">Прокат "Лодка-Сервис"</h3>
+                        <span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded font-bold">Прокат</span>
+                    </div>
+                    <p class="text-gray-500 text-sm mb-4">Аренда ПВХ лодок и моторов.</p>
+                    <a href="#" class="text-water-600 font-semibold text-sm hover:underline">Подробнее</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center gap-2 mb-4">
+                        <i class="fa-solid fa-fish text-water-500 text-2xl"></i>
+                        <span class="font-bold text-xl text-white">РЫБАК АХТАРСКА</span>
+                    </div>
+                    <p class="text-gray-400 text-sm max-w-sm mb-6">
+                        Главный информационный портал для рыбаков Приморско-Ахтарского района. Онлайн камеры, прогноз клёва, карта мест и каталог услуг.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-water-600 transition text-white"><i class="fa-brands fa-vk"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-water-600 transition text-white"><i class="fa-brands fa-telegram"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-water-600 transition text-white"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Разделы</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-water-400 transition">Веб-камеры</a></li>
+                        <li><a href="#" class="hover:text-water-400 transition">Прогноз клёва</a></li>
+                        <li><a href="#" class="hover:text-water-400 transition">Карта мест</a></li>
+                        <li><a href="#" class="hover:text-water-400 transition">Базы отдыха</a></li>
+                        <li><a href="#" class="hover:text-water-400 transition">Услуги видеонаблюдения</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Контакты</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-phone text-water-500"></i> +7 (999) 000-00-00</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-envelope text-water-500"></i> info@fish-akhtarsk.ru</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-location-dot text-water-500"></i> г. Приморско-Ахтарск</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-500">
+                <p>&copy; 2024 Рыбак Ахтарска. Все права защищены.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="hover:text-gray-300">Политика конфиденциальности</a>
+                    <a href="#" class="hover:text-gray-300">Пользовательское соглашение</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Bite Calculator Logic
+        function calculateBite() {
+            const pressure = parseInt(document.getElementById('pressure').value);
+            const wind = parseInt(document.getElementById('wind').value);
+            const moon = parseInt(document.getElementById('moon').value);
+            
+            let score = 3;
+            
+            if (pressure >= 758 && pressure <= 765) score += 1.5;
+            else if (pressure < 750 || pressure > 770) score -= 1;
+            else score += 0.5;
+
+            if (wind >= 2 && wind <= 5) score += 1;
+            else if (wind > 10) score -= 1.5;
+            else if (wind === 0) score -= 0.5;
+
+            if (moon === 2 || moon === 4) score += 0.5;
+            if (moon === 1 || moon === 3) score -= 0.5;
+
+            score = Math.max(1, Math.min(5, Math.round(score)));
+
+            const circle = document.getElementById('bite-circle');
+            const scoreText = document.getElementById('bite-score');
+            const textDesc = document.getElementById('bite-text');
+            
+            const offset = 440 - (score / 5) * 440;
+            circle.style.strokeDashoffset = offset;
+
+            if(score <= 2) circle.style.stroke = '#ef4444';
+            else if(score === 3) circle.style.stroke = '#f59e0b';
+            else circle.style.stroke = '#10b981';
+
+            scoreText.innerText = score;
+
+            const descriptions = ["Ужасный", "Плохой", "Средний", "Хороший", "Отличный"];
+            textDesc.innerText = descriptions[score - 1];
+            textDesc.className = `text-lg font-semibold ${score <= 2 ? 'text-red-500' : score === 3 ? 'text-orange-500' : 'text-green-600'}`;
+        }
+
+        document.getElementById('pressure').addEventListener('input', (e) => {
+            document.getElementById('pressure-val').innerText = e.target.value;
+        });
+        document.getElementById('wind').addEventListener('input', (e) => {
+            document.getElementById('wind-val').innerText = e.target.value + ' м/с';
+        });
+
+        // Yandex Maps Initialization
+        ymaps.ready(init);
+
+        function init() {
+            // Create map centered on Primorsko-Akhtarsk
+            const myMap = new ymaps.Map("map", {
+                center: [46.0536, 38.1733],
+                zoom: 10,
+                controls: ['zoomControl', 'fullscreenControl', 'typeSelector']
+            });
+
+            // Map locations with Russian content only
+            const locations = [
+                { 
+                    coords: [46.0536, 38.1733], 
+                    title: "Центр города", 
+                    hint: "Приморско-Ахтарск",
+                    icon: "city"
+                },
+                { 
+                    coords: [46.1200, 38.2500], 
+                    title: "Бейсугский лиман", 
+                    hint: "Популярное место для рыбалки",
+                    icon: "fishing"
+                },
+                { 
+                    coords: [45.9500, 38.1000], 
+                    title: "Ясенский залив", 
+                    hint: "Морская рыбалка",
+                    icon: "fishing"
+                },
+                { 
+                    coords: [46.0800, 38.2000], 
+                    title: "Ахтарский лиман", 
+                    hint: "База отдыха с камерой",
+                    icon: "base"
+                },
+                { 
+                    coords: [46.0300, 38.1500], 
+                    title: "Река Бейсуг", 
+                    hint: "Речная рыбалка",
+                    icon: "fishing"
+                }
+            ];
+
+            // Custom icons for different location types
+            const icons = {
+                city: {
+                    iconLayout: 'default#image',
+                    iconImageHref: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%235c5042"><path d="M12 2L2 22h20L12 2zm0 4l6 14H6L12 6z"/></svg>',
+                    iconImageSize: [30, 30],
+                    iconImageOffset: [-15, -15]
+                },
+                fishing: {
+                    iconLayout: 'default#image',
+                    iconImageHref: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23a3b126"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M6 12h12" stroke="white" stroke-width="2"/></svg>',
+                    iconImageSize: [30, 30],
+                    iconImageOffset: [-15, -15]
+                },
+                base: {
+                    iconLayout: 'default#image',
+                    iconImageHref: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%230ea5e9"><path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.5L19 8l-7 3.5L5 8l7-3.5z"/></svg>',
+                    iconImageSize: [30, 30],
+                    iconImageOffset: [-15, -15]
+                }
+            };
+
+            // Add placemarks to map
+            locations.forEach(loc => {
+                const placemark = new ymaps.Placemark(loc.coords, {
+                    balloonContentHeader: loc.title,
+                    balloonContentBody: loc.hint,
+                    hintContent: loc.title
+                }, {
+                    preset: loc.icon === 'city' ? 'islands#brownDotIcon' : 
+                            loc.icon === 'base' ? 'islands#blueDotIcon' : 
+                            'islands#greenDotIcon'
+                });
+                myMap.geoObjects.add(placemark);
+            });
+
+            // Add custom controls with Russian labels
+            myMap.controls.remove('searchControl');
+            myMap.controls.remove('trafficControl');
+        }
+    </script>
+</body>
+</html>
+
